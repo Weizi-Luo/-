@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+		<h1>11</h1>
+		全选<input type="checkbox">
+		banana: <input type="checkbox">
+		apple: <input type="checkbox">
+		orange: <input type="checkbox">
+	
+		<h1>22</h1>
+		全选<input type="checkbox">
+		Rose: <input type="checkbox">
+		Curry: <input type="checkbox">
+		James: <input type="checkbox">
+
+	<script src="./jquery-3.3.1.js"></script>
+	<script>
+		
+	// $('input').eq(0).click(function () {
+	// 	if( $(this).prop('checked') ){
+	// 		$(this).nextAll().prop('checked',true);
+
+	// 	}else{
+	// 		$(this).nextAll().prop('checked',false);
+	// 	}
+	// })
+
+		$('input').eq(0).click(function () {
+		if( $(this).prop('checked') ){
+			$(this).nextAll().prop('checked',true);
+
+		}else{
+			$(this).nextAll().prop('checked',false);
+		}
+	})
+		
+
+
+	</script>
+	
+</body>
+</html>

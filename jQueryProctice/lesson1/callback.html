@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<!-- <script src="./jquery-3.3.1.js"></script> -->
+	<script src="./myjQuery.js"></script>
+	<script>
+
+		// var cb = $.Callbacks();
+		var cb = $.myCallbacks('once memory');
+		function a (ms) {
+			console.log('a' , ms)
+		}
+
+		function b (ms) {
+			console.log('b' , ms)
+		}
+
+		cb.add(a);
+		cb.add(b);
+		cb.fire('memory');
+		// cb.fire('a');
+		cb.add(a);
+		cb.add(a);
+		cb.add(a);	
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>

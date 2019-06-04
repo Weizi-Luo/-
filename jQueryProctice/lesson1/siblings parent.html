@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<ul class="wrapper">
+		<li>1</li>
+		<span>a</span>
+		<li>2</li>
+		<span>b</span>
+		<li>3</li>
+		<li>4</li>
+		<span>c</span>
+		<button>d</button>
+	</ul>
+	<div>
+		<button>d</button>
+	</div>
+
+
+	<script src="./jquery-3.3.1.js"></script>
+	<script>
+	
+	//  siblings()
+
+		$('li').eq(1).css({color:'orange'}).click(function () {
+			$('li').eq(1).siblings('span').css({color:'red'})
+		})
+
+	//  parent()
+
+		console.log( $('button').parent() )
+		console.log(Number('1'))
+
+		    
+
+
+        
+
+
+
+
+
+	</script>
+</body>
+</html> 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="demo" cst="aa">1</div>
+	<div class="demo">2</div>
+	<div class="demo">3</div>
+	<input type="text" checked="aa">
+
+	<script src="./jquery-3.3.1.js"></script>
+
+	<script>
+		console.log( $('.demo').attr('class') )
+
+		 console.log( $('input').attr('checked') )
+		 // console.log( $('.demo').attr('css','aa') )
+
+		 console.log( $('.demo').prop('cst') )
+		 console.log( $('.demo').prop('id','aa') )
+		 console.log( $('input').prop('checked') )
+
+
+	</script>
+</body>
+</html>
