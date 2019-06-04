@@ -1,0 +1,47 @@
+
+
+<view class="container">
+    <view class="mark-container">
+        <image class="avatar" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3590069947,3609584061&fm=27&gp=0.jpg"></image>
+        <text class="text">neffy等19人马克了</text>
+    </view>
+
+    <view >
+        <d-bigImg wx:if='{{articleDetail.type == 0}}'
+                  img-src="{{articleDetail.imgArray[0]}}"
+                  main-title="{{articleDetail.mainTitle}}" />
+                  
+        <d-pureText wx:if='{{articleDetail.type == 4}}'
+                    main-title='{{articleDetail.mainTitle}}'
+                    sub-head='{{articleDetail.subHead}}'/>
+        <d-video wx:if='{{articleDetail.type == 3}}'
+                 main-title='{{articleDetail.mainTitle}}' 
+                 src='{{articleDetail.video.src}}'
+                 duration='{{articleDetail.video.duration}}'
+                 poster='{{articleDetail.video.poster}}'
+                 video-id='{{articleDetail.videoId}}' />
+        <d-nineImg wx:if='{{articleDetail.type == 1}}'
+                   img-arr="{{articleDetail.imgArray}}" 
+                   main-title="{{articleDetail.mainTitle}}"/>
+        <d-imgText wx:if='{{articleDetail.type == 2}}' 
+                   main-title='{{articleDetail.mainTitle}}'
+                   sub-head='{{articleDetail.subHead}}'
+                   img-src='{{articleDetail.imgArray[0]}}' />
+    </view>
+
+    <view class="control-container">
+        <view>
+            <d-tag tag='{{articleDetail.tag}}' tagId='{{articleDetail.tagId}}' />
+        </view>
+        <view class="control-box">
+            <d-more class='box' tag='{{articleDetail.tag}}' />
+            <d-imgBtn open-type="share" class="box img-btn">
+                <image src="/images/mark/relay.png" slot="img" />
+            </d-imgBtn>
+            <d-like class="box" like='{{likeStatus}}' catch:like="onLike" />
+        </view>
+    </view>
+
+</view>
+
+

@@ -1,0 +1,42 @@
+
+<view class="container">
+
+    <view class="user-container">
+        <view class="user-info">
+            <view class="user-name">{{userInfo.nickName}}</view>
+            <view class="user-avatar">
+                <!-- <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1261269011,3388789942&fm=27&gp=0.jpg" /> -->
+                <image wx:if="{{authorized}}" src="{{userInfo.avatarUrl}}" />
+                <!-- <button class="get-user-info" wx:else
+                        open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
+                     
+                    <image src="/images/mark/login.png" /> 
+                </button> -->
+
+                <!-- <d-imgBtn open-type="getUserinfo"></d-imgBtn> -->
+                <d-imgBtn open-type="getUserInfo" bind:getuserinfo="onGetUserInfo">
+                    <image src="/images/mark/login.png" slot="img" />
+                </d-imgBtn>
+
+            </view>
+
+            <!-- <open-data type="userNickName" class="user-name" />
+            <open-data type="userAvatarUrl" class="user-avatar" /> -->
+
+           
+        </view>
+
+        <view class="share">
+            <!-- <image src="/images/mark/relay.png" /> -->
+            <d-imgBtn open-type="share">
+                <image src="/images/mark/relay.png" slot="img" />
+            </d-imgBtn>
+        </view>
+
+    </view>
+
+    <d-articleList article-list="{{likeList}}"></d-articleList>
+
+    <!-- <d-imgBtn></d-imgBtn> -->
+
+</view>

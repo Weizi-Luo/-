@@ -1,0 +1,24 @@
+/* pages/index/index.wxss */
+
+view{
+    border:1px solid black;
+}
+image{
+    width:730rpx;
+    height:700rpx;
+    display: block;
+    /* position:absolute; */
+    margin:2rpx auto;
+    /* text-align: center; */
+}
+text{
+    margin:20rpx;
+    display: inline-block;
+    text-align:center;
+    /* font-size:12rpx; */
+}
+.name{
+    float:right;
+    /* display: block; */
+    text-align: center;
+}

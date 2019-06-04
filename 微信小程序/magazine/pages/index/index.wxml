@@ -1,0 +1,60 @@
+<!-- 
+<d-imgText main-title="来去我去哦吗啊我们上传宁波去沃尔玛扒皮"
+           sub-head="上了克己奉公阿斯利康的风景" 
+           img-src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554019993421&di=aabd9535ed707d7954a40a1db1ca19dc&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn09%2F86%2Fw519h367%2F20181015%2F96c7-hmhswim8657706.jpg' />
+
+<d-bigImg img-src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554009699076&di=bc1a799a33435fc327698e7499dfa0f7&imgtype=0&src=http%3A%2F%2Fimgm.gmw.cn%2Fattachement%2Fjpg%2Fsite2%2F20170629%2Ff44d30758ab01abe846262.jpg' 
+          main-title='bigImg' />
+
+<d-pureText main-title='搜啊哦啊是佛 i 我'
+            ></d-pureText>
+
+
+<d-nineImg  />
+
+<d-video src='http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400'
+         poster='http://img.soogif.com/CMK6MV0IkhuNTKBGl7GnElMXhyKffvfU.gif'
+         duration="41'"
+         video-id='video201801'
+                ></d-video>
+
+
+<d-tag tag="心理" tagId='3' />
+
+<d-more tag='心理' />
+
+<d-like like='true'></d-like> -->
+
+<!-- <d-article
+            wx:for='{{articleList.data.data}}'
+            wx:key='{{artId}}'
+            article-detail='{{item}}' /> -->
+
+<!-- <scroll-view class='container'>
+    <view class="color red"></view>
+    <view class="color green"></view>
+    <view class="color blue"></view>
+
+</scroll-view> -->
+
+<d-nav class="nav" catch:nav="onNav"/>
+
+<d-reacommend recommend="{{recommend}}" magazine-id="{{magazineId}}" class="recommend"></d-reacommend>
+
+
+
+<d-tagList mark-list="{{markList}}">
+    <!-- <view slot="before">+</view> -->
+    <d-add slot="before" class="add" wx:if="{{magazineId == 0}}"></d-add>
+    <view slot="after" class="to-catalog" catch:tap="onCatalog" wx:if="{{magazineId == 0}}">•••</view>
+</d-tagList>
+
+<d-articleList  article-list='{{articleList}}'
+                more='{{getMore}}'
+                magazineId='{{magazineId}}' />
+
+<view class="loading-container" wx:if="{{loading}}">
+    <d-loading class="loading" ></d-loading>
+</view>
+
+

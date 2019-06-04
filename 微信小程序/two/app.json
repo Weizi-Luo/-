@@ -1,0 +1,10 @@
+{
+  "pages": [
+    
+    "pages/scroll/scroll",
+    "pages/type/type",
+    "pages/aticleDetail/aticleDetail",
+    "pages/index/index"
+    
+  ]
+}

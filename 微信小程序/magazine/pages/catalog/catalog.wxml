@@ -1,0 +1,49 @@
+
+
+<view class="container">
+    <!-- <view></view> -->
+    <d-search value="{{searchWord}}"></d-search>
+
+    <view class="mark-container">
+
+        <view class="mark-control">
+            <view class="my-magazine">我的杂志</view>
+            <view class="manage-magazine">管理杂志</view>
+        </view>
+
+        <d-tagList mark-list="{{myTagList}}" >
+            <d-add slot="before" style="margin-right:20rpx;" />
+        </d-tagList>
+        
+    </view>
+    <view>
+        <view   class="tag-list-container"
+                wx:for="{{tagInfoList}}" 
+                wx:for-item="tagListItem"
+                wx:key="title">
+            <view>{{tagListItem.title}} ></view>
+            <view>
+                <view class="tag"
+                      wx:for="{{tagListItem.tagList}}"
+                      wx:key="tag">
+                    <text class="tag-text"># {{item.tag}}</text>
+                    <d-subscribe tag="{{item.tag}}" tag-id="{{item.tagId}}"
+                                 catch:tap="onSubscribeTap"></d-subscribe>
+                </view>
+                <!-- <view></view>
+                <view></view>
+                <view></view>
+                <view></view>
+                <view></view>
+                <view></view> -->
+            </view>
+        
+        
+        </view>
+        <!-- <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view> -->
+    </view>
+</view>

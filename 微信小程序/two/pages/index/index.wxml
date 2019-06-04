@@ -1,0 +1,8 @@
+<!--pages/index/index.wxml-->
+
+<view >
+    <image src="../../img/picture.png" />
+    <text >是否要卸下残红熄灭骄纵才会被施以恩宠也曾是朱砂心口月光床头杯一腔热血孤勇</text>
+    <text class="name">---既生厌-昙骨</text>
+
+</view>

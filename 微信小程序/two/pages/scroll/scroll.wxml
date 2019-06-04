@@ -1,0 +1,69 @@
+<!--pages/scroll/scroll.wxml-->
+
+<view class="container">
+    <!-- 推荐 -->
+    <view class="recommend-container">
+        <view class="recommend-article">    
+            <text class="date">{{recommend.date}}</text>
+            <text class="recomend-title">{{recommend.title}}</text>
+            <image mode="widthFix" class="recommend-cover" src="{{recommend.imgSrc}}" />
+        
+        </view>
+        <view class="recommend-box">
+            <text>+</text>
+            <text wx:for="{{markType}}" bindtap="onArticleTypeTap" data-articleType='{{item.typeId}}' wx:key="typeId">{{item.type}}</text>
+            <!-- <text>男性穿搭</text>
+            <text>心理</text>
+            <text>深度阅读</text>
+            <text>人生整理术</text>
+            <text>读书</text>
+            <text>日韩剧</text>
+            <text>吃喝攻略</text> -->
+            <text>...</text>
+
+
+        </view>
+    
+    </view>
+    <!-- 列表 -->
+    
+    <view class="recommend-list-container">
+        <view class="per-article" wx:for="{{articleList}}" wx:key="id">
+            <view class="article-head">
+                <image  src="{{item.markPeopleAvatar}}"/>
+                <text>{{item.markPeople}}</text>
+                <text>等</text>
+                <text>{{item.markCount}}</text>
+                <text>人马克了</text>
+            </view>
+            <view class="article-cover">
+                <image mode="widthFix" src="{{item.articleImgSrc}}" />
+            </view>
+            <view class="article-title">
+                <text >{{item.articleTitle}}</text>
+            </view>
+            <view class="article-handle-box">
+                <view class="article-type">
+                    <text >{{item.articleType}}</text>
+                </view>
+                <view class="article-handle">
+                    <view>
+                        <image bindtap="onMoreTap" data-articleType='{{item.articleType}}' src="/image/list/article/icon/Icon_more.png" />
+                    </view>
+                    <view>
+                        <button open-type="share">
+                            <image src="/image/list/article/icon/Icon_relay.png" />
+                        </button>
+                        
+                    </view>
+                    <view>
+                        <image bindtap='onLikeTap' data-articleIndex='{{index}}' wx:if="{{listLike[index]}}" src="/image/list/article/icon/Icon_circle_fill.png" />
+                        <image bindtap='onLikeTap' data-articleIndex='{{index}}' wx:else src="/image/list/article/icon/Icon_circle.png" />
+                    </view>
+                </view>
+            </view>
+        </view>
+
+    </view>
+
+</view>

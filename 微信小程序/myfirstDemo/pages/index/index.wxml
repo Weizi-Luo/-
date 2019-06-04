@@ -1,0 +1,18 @@
+<!--pages/index/index.wxml-->
+<!-- <text>pages/index/index.wxml</text> -->
+
+<!-- <div>
+    <img src="" alt="">
+    <span></span>
+    <span></span>
+</div> -->
+
+
+<view class="container">
+    <!-- <image src="../../image/avatar.png" /> -->
+    <image class="avatar" src="/image/avatar.png" />
+    <text class="name" decode="true">伟 子</text>
+    <text class="welcome">欢迎来到430</text>
+</view>
+
+<view class="box" hover-class="box-hover"></view>
