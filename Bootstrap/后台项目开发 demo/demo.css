@@ -1,0 +1,150 @@
+html,body{
+	width:100%;
+	height:100%;
+}
+.wrap{
+	width:100%;
+	height:100%;
+	background-color:#eee;
+}
+.leftMenu{
+	float: left;
+	width:200px;
+	height:100%;
+	background-color:#4d5e70;
+}
+.leftMenu .logoDiv{
+	width:100%;
+	height:70px;
+	background-color:#354457;
+	padding:20px;
+	color:#fff;
+}
+.leftMenu .logoDiv img{
+	width:30px;
+	height:30px;
+}
+.leftMenu .info{
+	width:100%;
+	padding:20px;
+	border-bottom:1px solid #eee;
+}
+.leftMenu .info p{
+	font-size:20px;
+	color:#fff;
+}
+
+/*list*/
+.leftMenu .list .list-group-item{
+	background-color:#4d5e70;
+	color:#fff;
+	border:none;
+	padding-left: 30px;
+}
+.leftMenu .list .list-group-item.disabled{
+	font-weight:bold;
+	padding-left:8px;
+}
+.leftMenu .list .list-group-item.list-group-item-active{
+	background-color:#eee;
+	color:#333;
+}
+
+/*右侧内容区域*/
+.rightContent{
+	width:100%;
+	height:100%;
+	padding-left:200px;
+
+}
+.tab-content{
+
+}
+.rightContent .box{
+	padding:30px;
+}
+
+.tableHeader{
+	height:70px;
+	width:100%;
+	background-color:#fff;
+	line-height: 70px;
+}
+.tableBody{
+	width:100%;
+	margin-top:20px;
+	/*padding-left:15px;*/
+}
+.tableBody .row{
+	height:70px;
+	background-color:#fff;
+	width: 100%;
+	margin:0;
+	line-height: 70px;
+	/*margin-left:-15px;*/
+}
+
+/*缩小时出现btn按钮*/
+.toggle-btn{
+	display:none;
+	color:#333;
+	font-size:20px;
+}
+
+@media (max-width:1123px){
+	.toggle-btn{
+		display:block;
+	}
+	.leftMenu{
+		display:none;
+	}
+	.rightContent{
+		padding-left:20px;
+	}
+
+}	
+
+
+.change .form-horizontal .form-group{
+	height:30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
