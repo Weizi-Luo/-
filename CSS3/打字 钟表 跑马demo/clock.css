@@ -1,0 +1,34 @@
+
+*{
+	margin:0;
+	padding:0;
+}
+div.clock{
+	position:relative;
+	width:512px;
+	height:512px;
+	background-image:url();
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+.second{
+	width:16px;
+	height:278px;
+	background-image:url();
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+.minute{
+	width:32px;
+	height:218px;
+	background-image:url();
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+.hour{
+	width:32px;
+	height:218px;
+	background-image:url();
+	background-size:cover;
+	background-repeat:no-repeat;
+}
