@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		
+		
+
+
+
+		var obj = {};
+		var tempValue = ''
+		Object.defineProperty(obj, 'name', {
+			// value: 'cst',
+			// writable：false,
+			// configurable：true,
+			// enumerable：true	
+			
+			get: function () {
+				return tempValue;
+			},
+			set: function (newValue) {
+				tempValue = newValue
+			}
+		})
+		console.log( obj.name );
+		obj.name = 10;
+		console.log( obj.name );
+		obj.age = 18;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+
+	
+</body>
+</html>

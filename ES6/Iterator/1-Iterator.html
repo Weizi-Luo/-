@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		let arr = [1, 2, 3];
+
+
+
+		function OuterIterator (o) {
+			let curIndex = 0;
+			let next = () => {
+				return {
+					value: o[curIndex],
+					done: o.length == ++curIndex
+				}
+			}
+			return {
+				next
+			}
+		};
+		let oIt = OuterIterator(arr);
+
+		oIt.next();
+
+
+		// 特殊的数据类型
+		let os = Symbol('abc');
+		let os0 = Symbol('abc'); // 唯一的
+		console.log(os, os0); // Symbol(abc)
+
+		let os2 = Symbol({
+			name: 'cst'
+		})
+		let os3 = Symbol({
+			name: 'cst',
+			toString: function () {
+				return 'hello';
+			}
+		})
+		console.log(os2); // Symbol([object Object])
+		console.log(os3); // Symbol(hello)
+
+
+		let prop = 'name';
+		let obj = {
+			[prop]: 'cst',
+			[os2]: 'wa~',
+			[os0]: 'yo~'
+		}
+		console.log(obj, obj[os2], obj[os0]) // Symbol数据结构只能通过obj[os2]的方式取
+
+
+
+		// 有迭代接口的: arr set map arguments nodelist 字符串
+		// iterator函数
+		console.log( Symbol.iterator, Symbol('Symbol.iterrator'))
+
+
+		let obj = {
+			0: 'a',
+			1: 'b',
+			2: 'c',
+			length: 3,
+			[Symbol.iterator]: function () {
+				let curIndex = 0;
+				let next = () => {
+					return {
+						value: this[curIndex],
+						done: this.length == ++curIndex
+					}
+				}
+				return {
+					next
+				}
+			}
+		};
+
+
+
+	</script>
+	
+</body>
+</html>

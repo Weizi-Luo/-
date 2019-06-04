@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<input id="demo" type="text">
+	<div id="show"></div>
+
+	<script>
+		var oDiv = document.getElementById('show');
+		var oInput = document.getElementById('demo');
+
+		var oData = {
+			value: 'hello',
+			name: 'word',
+			// 若是此形式，需用到递归来深度数据劫持
+			age:{
+				up: 70,
+				down: 14
+			}
+		};
+
+		oInput.oninput = function() {
+			oData.value = this.value;
+		};
+
+		function upDate () {
+			oDiv.innerText = oData.value;
+		}
+
+		upDate();
+
+		// 监控对象的某个属性是否发生改变
+		function Observer (data) {
+			if (!data || typeof data != 'object') {
+				return data;
+			};
+			// for(var prop in data) {
+
+			// }
+			Object.keys(data).forEach(function(key,inde) {
+				definedRective(data, key, data[key]);
+			});
+		}
+
+		function definedRective(data,key,val) {
+
+			// 深层劫持
+			Observer(val);
+			Object.defineProperty(data, key, {
+				get () {
+					// console.log('get');
+					return val;
+				},
+				set (newValue) {
+					if(newValue == val) return;
+					val = newValue;
+					upDate();
+				}
+			})
+		}
+
+		Observer(oData);
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>

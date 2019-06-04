@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script>
+
+
+
+
+		// Promise.all
+		function readFile (path) {
+			return new MyPromise((res, rej) => {
+				setInterval( () => {
+					res(path);
+				}, parseInt(Math.random() * 500) );
+			})
+		}
+		
+		MyPromise.all([readFile('1'), readFile('2'), '3']).then((val) => {
+			console.log(val);
+		}, (reason) => {
+			console.log(reason);
+		});
+
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>

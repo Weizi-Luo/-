@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<input id="demo" type="text">
+	<div id="show"></div>
+
+	<script>
+		
+		// 老版本vue的数据劫持
+		
+		var oDiv = document.getElementById('show');
+		var oInput = document.getElementById('demo');
+
+
+		let arr = [];
+		let {push} = Array.prototype;
+		function upData() {
+			console.log('更新');
+		};
+
+		Object.defineProperty(Array.prototype, 'push', {
+			value: (function() {
+				return (...arg) => {
+					push.apply(arr, arg);
+					upData();
+				}
+			})()
+		});
+		arr.push(1, 2);
+
+
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>

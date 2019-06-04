@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	
+
+	<script type="module">
+		// 按需导入
+
+		import './module2.js';
+		// console.log(a)
+
+		// 全体导入
+		import * as allObj from './module2.js';
+		console.log(allObj.x);
+
+		// 默认导入
+		import b from './module4.js';
+		console.log(b); 
+	</script>
+	<!-- <script type="module" src="module1.js"></script> -->
+
+</body>
+
+</html>

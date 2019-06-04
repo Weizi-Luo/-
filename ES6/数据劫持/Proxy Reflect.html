@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		// ES6
+		let oData = {
+			val: 'hello',
+			age: '18'
+		};
+
+		let oProxyData = new Proxy(oData, {
+			set (target, key, value, receiver) {
+
+				Reflect.set(target, key, value);
+				upData();
+
+			},
+			get (target, key, receiver) {
+				console.log(target, key, receiver);
+				// target[key]
+				return Reflect.get(target, key);
+			},
+			has (target, key) {
+				return key.indexOf('_') != -1 ? false : key in oData;
+			}
+		});
+
+		function upData() {
+			console.log('更新了。。。');
+		} 
+
+		console.log( oProxyData.age );
+		console.log(oData)
+
+
+
+
+	</script>
+	
+</body>
+</html>

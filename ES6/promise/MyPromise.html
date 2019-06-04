@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+
+		
+
+
+		function MyPromise (executor) {
+			var self = this;
+			self.status = 'pending';
+			self.resolveValue = null;
+			self.rejectValue = null;
+
+			// 异步操作
+			self.ResolveCallBackList = [];
+			self.RejectCallBackList = [];
+
+			// var num = '';
+
+			function resolve (value) {
+				if (self.status === 'pending') {
+					self.status = 'Fulfilled';
+					self.re solveValue = value;
+					// num = self.resolveValue;
+					self.RejectCallBackList.forEach( (ele) => {
+						ele();
+					});
+				}
+			}
+
+			function reject (reason) {
+				if (self.status === 'pending') {
+					self.status = 'Rejected';
+					self.rejectValue = reason;
+					// num = self.rejectValue;
+				}
+			}
+			// this.then = function (resolve, reject) {
+				
+			// 	if (self.status === 'Fulfilled') {
+			// 		resolve(self.resolveValue);
+			// 	}
+
+			// 	if (self.status === 'Rejected') {
+			// 		reject(self.rejectValue);
+			// 	}
+			// }
+
+			// MyPromise.prototype.then = function (resolve, reject) {
+			// 	// var self = this;
+			// 	// console.log(self)
+			// 	var num = '';
+			// 	if (self.status === 'Fulfilled') {
+			// 		resolve(self.resolveValue);
+			// 		// console.log(self.resolveValue)
+			// 		num = self.resolveValue;
+			// 	}
+
+			// 	if (self.status === 'Rejected') {
+			// 		reject(self.rejectValue);
+			// 		num = self.rejectValue;
+			// 	}
+
+			// }
+
+			try {
+				executor(resolve, reject);
+			}catch(e) {
+				reject(e);
+			}
+			
+		};
+
+		MyPromise.prototype.then = function (resolve, reject) {
+				var self = this;
+
+
+				// 空then操作
+
+				if (!resolve) {
+					resolve = function (val) {
+						return val
+					}
+				}
+				if(!reject) {
+					reject = function (reason) {
+						throw new Error(reason);
+					}
+				}
+
+				//	链式操作
+				var nextPromise = new MyPromise(function (res, rej) {
+
+				
+				
+					if (self.status === 'Fulfilled') {
+						setTimeout(function () {
+							// 上一个then里抛出错误后,下个then可接收到
+							try{
+								var nextResolve = resolve(self.resolveValue);
+								// 链式操作
+								res(nextResolve);	
+							}catch (e) {
+								rej(e);
+							}
+												
+						}, 0);
+
+					}
+
+					if (self.status === 'Rejected') {
+						setTimeout(function () {
+							var nextReject = reject(self.rejectValue);
+							res(nextReject);
+						}, 0);
+						
+					}
+
+					// 异步操作
+					if (self.status === 'pending') {
+						
+						self.ResolveCallBackList.push(function () {
+
+							// .then的异步操作异步操作
+							try {
+								var nextResolve = resolve(self.resolveValue);
+								// 链式操作
+								res(nextResolve);	
+							} catch (e) {
+								rej(e);
+							}
+
+							
+
+						});
+
+						self.RejectCallBackList.push(function () {
+							
+																
+							try {
+								var nextReject = reject(self.rejectValue);
+								res(nextReject);
+							} catch (e) {
+								rej(e);
+							}
+
+						});
+					}
+
+				});
+
+				// 链式操作
+				return nextPromise;
+				
+		};
+
+		MyPromise.prototytpe.catch = function (onRejected) {
+			return this.then(null, onRejected);
+		};
+
+		MyPromise.prototype.finally = function (callback) {
+			return this.then(function (data) {
+				callback();
+				return data;
+			}, function (reason) {
+				callback();
+				throw reason;
+			});
+		}
+
+		MyPromise.race = function (promiseArr) {
+			return new MyPromise( function (resolve, reject) {
+				promiseArr.forEach(function (promise, index) {
+					promise.then(resolve, reject);
+				})
+			})
+		};
+
+		MyPromise.reject = function (reason) {
+			return new MyPromise(function (resolve, reject) {
+				reject(reason);
+			});
+		};
+
+		MyPromise.resolve = function (reason) {
+			return new MyPromise(function (resolve, reject) {
+				resolve(val);
+			});
+		}
+
+		// 1. 参数为[]  尽量都是Promise对象
+		// 2. 返回Promise  对象
+		// 3. then  成功后输出参数 按顺序放置结果
+
+		MyPromise.all = function (promiseArr) {
+			return new MyPromise (function (res, rej) {
+				// 当promiseArr所有的值都看一下， 如果全都是成功 res
+				// rej
+				// then
+
+				var arr = [];
+				var times = 0;
+				// 按顺序存数据
+				function processResult (index, result) {
+					arr[index] = result;
+					times++;
+					if(times == promiseArr.length) {
+						res(arr);
+					}
+				}
+
+				for (let i = 0; i < promiseArr.length; i++) {
+					var oPromise = promiseArr[i];
+					if (typeof oPromise.then == 'function') {
+						oPromise.then(function (val) {
+							// val 存一下这个val
+							processResult(i, val);
+						},function (reson) {
+							rej(reason);
+						})
+					}else{
+						processResult(i, oPromise);
+					}
+				}
+			});
+		};
+
+
+
+		// 原生Promise
+		var oP1 = new MyPromise( (res, rej) => {
+			// res(1);
+			// throw new Error('Oh no!!!');
+
+			// 异步操作
+			setTimeout( () => {
+				res(1);
+			}, 2000);
+		});
+		// console.log(oP1);
+		// 链式调用
+		//	.then的执行方式是异步。原理:setTimeout(function () {}, 0)
+		//	抛出错误
+		// 空then()略过
+		oP1.then((val) => {
+			console.log(val)
+
+		},(rej) => {
+			console.log(rej)
+			throw new Error('Oh no!!!');
+		}).then().then((val) => {
+			console.log(val)
+
+		},(rej) => {
+			console.log(rej)
+		})
+
+		// var oP2 = new MyPromise( (res, rej) => {
+		// 	res(2);
+		// 	throw new Error('Oh no!!!');
+		// });
+
+		// oP2.then((val) => {
+		// 	console.log(val)
+		// },(rej) => {
+		// 	console.log(rej)
+		// });
+
+		// oP1.then((val) => {
+		// 	console.log(val)
+		// },(rej) => {
+		// 	console.log(rej)
+		// });
+
+
+
+
+
+
+
+
+
+		
+	</script>
+	
+</body>
+</html>
