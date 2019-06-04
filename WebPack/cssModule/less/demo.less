@@ -1,0 +1,42 @@
+
+
+
+
+
+
+
+
+
+
+
+
+// less中模块引入
+@import './trangle.less';
+.wrapper{
+	width:200px;
+	height:200px;
+	margin:300px auto;
+	.box{
+	.trangle(T, blue, 50px);
+	}
+}
+
+
+// @arguments
+.border(@w, @s, @c) {
+	border:@arguments;
+}
+.box{
+	width:200px;
+	height:200px;
+	.border(1px, solid, red);
+}
+
+
+
+
+
+
+
+
+
