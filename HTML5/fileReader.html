@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		img{
+			width:300px;
+			height:300px;
+			border:1px solid #000;
+		}
+		.progress{
+			width:300px;
+			height:30px;
+			border:1px solid #000;
+		}
+		.bar{
+			width:0px;
+			height:30px;
+			background-color:aqua;
+		}
+
+
+
+	</style>
+</head>
+<body>
+
+	<input type="file">
+	<img src="" alt="">
+	<div class="progress">
+		<div class="bar"></div>
+	</div>
+	<span class="text"></span>
+	<button class="abort">终止</button>
+	
+	<script>
+		
+	var inp = document.getElementsByTagName('input')[0];
+	var img = document.getElementsByTagName('img')[0];
+	var bar = document.getElementsByClassName('bar')[0];
+	var text = document.getElementsByClassName('text')[0];
+	var btn = document.getElementsByClassName('abort')[0];
+
+	inp.onchange = function () {
+		// console.log(inp.files[0]);
+		// reader.readAsDataURL(inp.files[0]);
+		bar.style.width = '0px';
+		var reader = new PartFileReader(inp.files[0], 'readAsDataURL', {
+			loadStart: function(e) {
+				console.log('start', e)
+			},
+			progress: function(e,loaded,total) {
+				// console.log('progress', e)
+				// var precent = e.loaded / e.total * 100;
+				// console.log(loaded,total)
+				var precent = loaded / total * 100;
+
+				var width = Math.round(300 * precent / 100);
+				bar.style.width = width + 'px';
+				text.innerHTML = Math.round(precent) + '%';
+			},
+			load: function(e) {
+				console.log('load', e)
+			},
+			loadend: function(e) {
+				console.log('end', e)
+			},
+			abort: function(e) {
+				console.log('abort', e)
+			}
+		})
+
+		
+	}
+
+	
+
+
+	// 分割文件读取
+	function PartFileReader(files,type,event) {
+		console.log('this指向：',this)
+		this.files = files;
+		this.type = type;
+		this.event = event;
+		this.total = files.size;
+		this.step = 1024 * 1024;		
+		this.loaded = 0;
+		this.reader = new FileReader();
+		this.abort = this.reader.abort;
+		// console.log(this.reader.abort());
+		this.readPartFile(0);
+		this.bindEvent();
+	}
+
+	// 读取文件
+	PartFileReader.prototype.readPartFile = function (start) {
+		if(this.files.slice) {
+			var file = this.files.slice(start,start + this.step);
+			switch(this.type) {
+				case 'readAsBinaryString':
+					this.reader.readAsBinaryString(file);
+					break;
+				case 'readAsDataURL':
+					this.reader.readAsDataURL(file);
+					break;
+				case 'readAsText':
+					this.reader.readAsText(file);
+					break;
+				case 'readAsArrayBuffer':
+					this.reader.readAsArrayBuffer(file);
+					break;
+				default:
+					break;
+
+			}
+		}
+	}
+
+	PartFileReader.prototype.bindEvent = function () {
+		var self = this;
+		console.log('PartFileReader:',this)
+		this.reader.onloadstart = function(e) {
+			self.event.loadStart && self.event.loadStart.call(this,e);
+		}
+		this.reader.onprogress = function(e) {
+			// self.loaded += e.loaded;
+			// console.log('onprogress:',this)
+			console.log('onprogress:',e.loaded)
+
+			self.event.progress && self.event.progress.call(this, e, self.loaded, self.total);
+		}
+		this.reader.onload = function(e) {
+			self.loaded += e.loaded;
+			self.event.load && self.event.load.call(this,e);
+			if(self.loaded < self.total) {
+				self.readPartFile(self.loaded);
+			}
+			
+			console.log(self.loaded)
+		}
+		this.reader.onloadend = function(e) {
+			self.event.loadend && self.event.loadend.call(this,e);
+		}
+		this.reader.onabort = function(e) {
+			self.event.abort && self.event.abort.call(this,e);
+		}
+		btn.onclick = function() {
+			self.reader.abort();
+		}
+
+	}
+
+
+
+
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" id="inp">
+	<button id="btn">搜索</button>
+	<ul id="wrap"></ul>	
+	
+
+	<script>
+		var inp = document.getElementById('inp');
+		var btn = document.getElementById('btn');
+		var wrap = document.getElementById('wrap');
+		var data = [{name:'渡一'},{name:'渡一教育'},{name:'css'},{name:'html'}];
+
+		function renderDom(datas) {
+			var str = '';
+			datas.forEach(function(item){
+				str += '<li>' + item.name + '</li>';
+			});
+			wrap.innerHTML = str;
+		}
+		renderDom(data);
+		btn.onclick = function() {
+			var key = inp.value;
+			var dataList = data.filter(function(item) {
+				return item.name.indexOf(key) > -1;
+			});
+			renderDom(dataList);
+			history.pushState({
+				key:key
+			},null,'#'+ key);
+		}
+
+		window.addEventListener('popstate', function(e){
+			console.log(e)
+			var key = e.state ? e.state.key : '';
+			var dataList = data.filter(function(item) {
+				return item.name.indexOf(key) > -1;
+			});
+			inp.value = key;
+			renderDom(dataList);
+		});
+
+
+	</script>
+</body>
+
+</html>

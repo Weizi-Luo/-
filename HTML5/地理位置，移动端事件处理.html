@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		var speed = 25;
+		var lastTime = 0;
+		var last = 0, lastY = 0; lastZ = 0;
+		window.addEventListener('devicemotion', function(event) {
+			console.log(event);
+			demo.innerHTML = 'acceleration-x' + event.acceleration.x + '<br/>y:' + event.acceleration.y + '<br/>z:' + event.				acceleration.z
+							+ 'accelerationIncludingGravity-x' + event.accelerationIncludingGravity.y + '<br/>y:' + event.accelerationIncludingGravity.y + '<br/>z:' + event.accelerationIncludingGravity.z	
+							+'rotationRate-alpha' + event.rotationRate.alpha + '<br/>beta:' + event.rotationRate.beta + '<br/>gama:' + event.rotationRate.gama + '<br/>'
+			var x = event.acceleration.x;
+			var y = event.acceleration.y;
+			var z = event.acceleration.z;
+			var nowTime = (new Date()).getTime();
+			if (nowTime - lastTime > 500) {
+				lastTime = nowTime;
+				if(Math.abs(x - lastX) > spped || Math.abs(y - lastY) > speed || Math.abs(z - lastZ) > speed) {
+					alert('摇一摇');
+					lastX = x;
+					lastY = y;
+					lastZ = z;
+				}	
+			}
+		});
+
+
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>

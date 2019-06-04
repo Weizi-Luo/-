@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<audio controls="controls" autoplay="autoplay">
+		<source  src="./弑亲者(The Kinslayer)_爱给网_aigei_com.mp3" type="audio/mpeg" />
+	</audio>
+	
+	<button id="volume_add">+</button>
+	<button id="volume_sub">-</button>
+	<button id="play">播放</button>
+	<button id="pause">暂停</button>
+	<button id="reload">重播</button>
+	<button id="add_rate">快进</button>
+	<button id="sub_rate">慢放</button>
+	<button id="skip">20s</button>
+</body>
+
+	<script>
+		var audio = document.getElementsByTagName('audio')[0];
+		volume_add.onclick = function() {
+			if(audio.volume < 0.9) {
+				audio.volume += 0.1;
+			}else{
+				audio.volume = 1;
+			}
+		}
+
+		volume_sub.onclick = function() {
+			if(audio.volume > 0.1) {
+				audio.volume -= 0.1;
+			}else{
+				audio.volume = 0;
+			}
+		}
+
+		play.onclick = function() {
+			if(audio.paused) {
+				audio.play();
+				play.innerText = '暂停';
+			}else{
+				audio.pause();
+				play.innerText = '播放';
+			}
+			
+		}
+
+		// pause.onclick = function() {
+		// 	audio.pause();
+		// }
+
+		reload.onclick = function() {
+			audio.load();
+			audio.play();
+		}
+
+		// 存在兼容问题
+		skip.onclick = function() {
+			audio.fastSeek(20);
+		}
+
+		add_rate.onclick = function() {
+			if(audio.playbackRate < 1.9){
+				audio.playbackRate += 0.1
+			}else{
+				audio.playbackRate = 2;
+			}
+			
+		}
+
+		sub_rate.onclick = function() {
+			if(audio.playbackRate > 0.5){
+				audio.playbackRate -= 0.1
+			}else{
+				audio.playbackRate = 0.5;
+			}
+			
+		}
+
+
+
+		
+
+
+
+
+	</script>
+</html>

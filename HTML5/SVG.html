@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		svg{
+			border:1px solid #000;
+			width:500px;
+			height:500px;
+		}
+		line{
+			stroke:red;
+			stroke-width:10;
+		}	
+		polygon{
+			fill:transparent;
+			stroke:red;
+		}
+		path{
+			stroke:#eee;
+			stroke-width:10;
+			fill: transparent;
+		
+		}
+		.animate {
+            stroke: #000;
+            stroke-width: 10px;
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation:dash 1s linear infinite alternate-reverse;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }	
+
+        circle{
+        	stroke-width:10px;
+        	fill: transparent;
+        	stroke: #eee;
+        }	
+        #demo{
+        	stroke:aqua;
+        	stroke-dasharray:100%;
+			/*stroke-dashoffset:100%;*/
+			transition:stroke-dashoffset 2s;
+        }
+        #inp{
+        	position: relative;
+        	top:-420px;
+        	left:225px;
+        }
+
+
+	</style>
+</head>
+<body>
+	<input type="text" id="inp">
+	<svg viewBox="0,0,500,500">
+		<!-- 线段 -->
+        <!--<line x1="100" y1="100" x2="200" y2="100" stroke="#000" stroke-width="10"></line>-->
+        <!-- 矩形 -->
+        <!-- <rect x="100" y="100" width="100" height="100" rx="20" ry="20"></rect> -->
+        <!-- 圆形 -->
+        <!--<circle r="50" cx="250" cy="250"></circle>-->
+        <!-- 椭圆 -->
+        <!-- <ellipse rx="100" ry="50" cx="250" cy="250"></ellipse> -->
+        <!-- 折线 -->
+        <!-- <polyline points="100 100, 200 50, 300, 100,400,50"></polyline> -->
+        <!-- <polygon points="100 100, 200 50, 300, 100,400,50"></polygon> -->
+        <!-- 多边形，自己会连起来结束点和起始点 -->
+        <!--<polygon points="100 100, 200 50, 300, 100"></polygon>-->
+        <!-- 文本 -->
+        <!-- <text x="100" y="100">瞅你咋地！</text> -->
+
+
+        <!-- path -->
+        <!-- M L 命令 -->
+        <!--<path d = "M 100 100 L 200 100" />-->
+        <!--<path d = "m 100 100 l 100 0" /> 相对位置 -->
+        <!-- V H 命令 -->
+        <!--<path d="M100 100 H 200 V 200 H 100 V 100"/>-->
+        <!-- A 命令 -->
+        <!--<path d="M 100 100 A 70 70 0 1 1 200 200"></path>-->
+
+
+        <!-- 线性渐变 -->
+        <!-- <defs>
+            <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="100%">
+                <stop offset="0%" style="stop-color:rgb(255,255,0); stop-opacity:1"/>
+                <stop offset="100%" style="stop-color:rgb(255,0,0); stop-opacity:1"/>
+            </linearGradient>
+            <radialGradient id="bg2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" style="stop-color:green;"/>
+                <stop offset="100%" style="stop-color:red;"/>
+            </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="500" height="500" style="fill:url(#bg1);"/> -->
+
+
+        <!-- 动画 -->
+        <!-- <path d="M 100 100 L 500 100" class="animate"></path> -->
+
+		
+		<!-- demo -->
+		<!-- <circle cx="100" cy="200" r=50></circle>
+		<circle cx="100" cy="200" r=50 id="demo"></circle> -->
+		<path d="M100 200 A 60 60 0 1 1 200 200"></path>
+		<path id="demo" d="M100 200 A 60 60 0 1 1 200 200"></path>
+
+	</svg>
+
+
+	<!-- <svg width=500 height=500>
+        <rect x="500" y="500" width="150" height="150" rx="10" ry="10" stroke-width="2px" stroke="#000" fill="transparent"></rect>
+        <rect x="50" y="50" width="150" height="150" rx="10" ry="10" stroke-width="2px" stroke="#000" fill="transparent"></rect>
+        <polyline points="60 50, 75 35, 100 50, 125 35, 150 50, 175 35, 190 50" fill="#000"></polyline>
+        <circle r="13" cx="90" cy="100"></circle>
+        <circle r="13" cx="160" cy="100"></circle>
+        <circle r="3" cx="95" cy="105" fill="#000" fill="transparent"></circle>
+        <circle r="3" cx="165" cy="105" fill="#000" fill="transparent"></circle>
+        <polygon points="125 125,130 140,120 140"></polygon>
+        <ellipse rx="25" ry="10" cx="125" cy="160"></ellipse>
+        <text x="125" y="220">hello,world</text>
+    </svg> -->
+
+    <script>
+    	demo.style.strokeDashoffset	= demo.getTotalLength();
+    	demo.style.strokeDasharray = demo.getTotalLength();
+
+    	inp.onblur = function() {
+    		if(Number(this.value)) {
+    			demo.style.strokeDashoffset = ( 100 - Number(this.value) ) * demo.getTotalLength() / 100 + 'px'
+    			console.log(demo.style.strokeDashoffset)
+    		}
+    	}
+    	
+
+    	// console.log(demo.getTotalLength())
+
+
+
+    </script>
+	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

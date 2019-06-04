@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#cans{
+			border:1px solid black;
+		}
+
+
+	</style>
+</head>
+<body>
+	<canvas id="cans" width="500" height="500"></canvas>
+
+	<script>
+		var oCanvas = document.getElementById('cans');
+		var ctx = oCanvas.getContext('2d')
+
+		// 图片填充
+		// var img = new Image();
+		// img.src = './101.jpg';
+		// img.onload = function() {
+		// 	var bg = ctx.createPattern(img, 'repeat');
+		// 	ctx.fillStyle = bg;
+		// 	ctx.fillRect(0,0,400,400)
+		// }
+
+		// 阴影
+		// ctx.shadowColor = 'red';
+		// ctx.shadowBlur = 10;
+		// ctx.shadowOffsetX = 50;
+		// ctx.shadowOffsetY = 10;
+		// ctx.fillRect(0,0,300,300);
+
+		// 文本
+		// ctx.fillStyle = 'red';
+		// ctx.font = '50px sans-serif';
+		// ctx.strokeText('没有选择	',50,100,100);
+		// ctx.fillText('hello world', 100, 100);
+		// ctx.measureText('he',10,200,100);  无效果
+
+		// 线段样式
+		ctx.moveTo(100,100);
+		ctx.lineTo(100,200);
+		ctx.lineWidth = 10;
+		ctx.lineCap = 'square'
+		ctx.stroke()
+
+
+	</script>
+	
+</body>
+</html>

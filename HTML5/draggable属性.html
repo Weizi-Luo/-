@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#demo{
+			width:100px;
+			height:100px;
+			background:red;
+		}
+		#demo1{
+			width:100px;
+			height:100px;
+			background:greenyellow;
+		}
+		#demo2{
+			width:100px;
+			height:100px;
+			background:blueviolet;
+		}
+		.wrapper{
+			width:400px;
+			height:300px;
+			border:1px solid #000;
+		}
+
+
+
+
+	</style>
+</head>
+<body>
+	<div class="demo">
+		
+		<div draggable="true" id="demo"></div>
+		<div draggable="true" id="demo1"></div>
+		<div draggable="true" id="demo2"></div>
+		
+	</div>
+	<div class="wrapper"></div>
+
+
+	<script>
+		var demo = document.getElementsByClassName('demo')[0];
+		// var demo = document.getElementById('demo');
+		console.log(demo)
+		var demo1 = demo.firstElementChild;
+		console.log(demo1)
+		var wrapper = document.getElementsByClassName('wrapper')[0];
+		// var id = null;
+
+		demo.ondragstart = function(e) {
+			console.log('start',e.target.draggable)
+			// 传输数据到释放区
+			e.dataTransfer.setData('obj', JSON.stringify({
+				id:e.target.id
+			}));
+		}
+
+
+
+		wrapper.ondragenter = function(e) {
+			console.log('enter')
+		}
+		wrapper.ondragover = function(e) {
+			e.preventDefault();
+			console.log('over')
+		}
+		wrapper.ondragleave = function(e) {
+			console.log('leave',e )
+			var oDiv = wrapper.firstChild;
+			console.log(oDiv);
+			wrapper.removeChild(oDiv);
+		}
+		wrapper.ondrop = function (e) {
+			console.log('drop')
+			// console.log(e)
+			// console.log(e.toElement == wrapper)
+			if(e.toElement == wrapper) {
+				var id = JSON.parse(e.dataTransfer.getData('obj')).id;
+			
+				var oDiv =  document.getElementById(id).cloneNode(true)
+				wrapper.appendChild(oDiv);
+				// console.log(e.dataTransfer.getData('obj'))
+			}
+			
+		}
+
+
+
+	</script>
+	
+</body>
+</html>
