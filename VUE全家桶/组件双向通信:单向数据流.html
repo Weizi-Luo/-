@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+        <div id="app">
+            <my-count :value="count" :obj="obj"></my-count>
+            <my-count :value="count" :obj="obj"></my-count>
+        </div>
+
+<script>
+    // 定义一个全局组件
+    // 单向数据流
+    Vue.component('myCount', {
+        props: ['value', 'obj'],
+        data () {
+            // 关键: 将数据保存在自己的数据里面 然后再调用自己的组件
+            return {
+                myObj: JSON.parse(JSON.stringify(this.obj))
+            }
+        },
+        mounted() {
+            setInterval(() => {
+
+            }, 1000)
+        },
+        template: `<div>{{ myObj.a }} <button @click="handleClick">click</button></div>`,
+        methods: {
+            handleClick() {
+                this.myObj.a = 100;
+            }
+        }
+    })
+    const vm = new Vue({
+        el: '#app',
+        data:{
+            count:100,
+            obj: {
+                a: 1
+            }
+        }
+    })
+</script>
+  
+</body>
+</html>

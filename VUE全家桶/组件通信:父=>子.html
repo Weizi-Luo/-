@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+        <div id="app">
+            <my-content :title="title" :content="content"></my-content>
+        </div>
+
+<script>
+
+    // vm.$attrs 存储着组件内没有注册的属性数据
+    // vm.$parent 组件的父组件实例
+    // vm.$children 子组件实例
+    // provide inject
+    const vm = new Vue({
+        el: '#app',
+        data:{
+            content: '萨发罗夫就啊司法解释到就扫放假啊时',
+            title: '我是标题'
+        },
+        components: {
+            myContent: {
+                created () {
+                    console.log(this.$parent)
+                },
+                // 注册属性 title contetn
+                // props: ['title','content'],
+                // 注册属性 title
+                props:['title'],
+                // 是否将未注册属性的数据显示在行间 默认为true
+                inheritAttrs:false,
+                template: ` <div>
+                                <h3>{{ title }}</h3>
+                                // 注册了content属性
+                                // <my-p :content="content"></my-p>
+                                // 未注册content属性
+                                <my-p :content="$attrs.content"></my-p>
+                                // 将所有数据传入子组件
+                                <my-p v-bind="$attrs"></my-p>
+                            </div> `,
+                components: {
+                    myP: {
+                        props: ['content'],
+                        template: `<p>{{ content }}</p>`
+                    }
+                }
+            }
+        }
+    })
+</script>
+  
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+        <div id="app">
+        相加计算:<input type="text" v-model.number="firstNum"> + <input type="text" v-model.number="lastNum">
+        <br />
+        计算结果:<input type="text" v-model.number="sum">
+        </div>
+
+<script>
+
+    // {{ person }} 先在data里找person 没有在往methods里找，然后在取computed找
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            firstNum:null,
+            lastNum:null
+        },
+
+        computed:{
+            sum:{
+                get() {
+                    return this.firstNum + this.lastNum;
+                },
+                set(val) {
+                    const avg = val / 2;
+                    this.firstNum = this.lastNum = avg;
+                }
+            }
+        }
+    })
+
+</script>
+
+
+
+<!-- 
+
+    <div id="app">
+        <input type="text" :value="">
+        <span>{{ content }}</span>
+        姓名:{{name}},年龄:{{age}}
+        {{ person() }}
+        {{msg}}
+    </div>
+-->
+<!-- 
+  <script>
+
+        // 1. 计算属性 computed 若数据没更改则直接取缓存的，不需要重新执行函数
+        // 2. 帧听器 数据改变触发相应的函数执行，第一次渲染页面时不会执行，只有当数据发生变化时才执行
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: '',
+                name:'Weizi',
+                age:18,
+                msg:'hello world'
+            },
+            // 当数据绑定时执行，配合帧听器使用
+            mounted () {
+                this.getPerson();
+            },
+            methods:{
+                // 太耗费性能了，每次数据更改都要执行一次函数，无缓存机制
+                person() {
+                    return `姓名:${this.name},年龄:${this.age}`
+                }
+            },
+            // 计算属性(根据多个值得到一个值时利用此方法较方便，有缓存机制，一次可以观察多个值，2.直接添加新数据)
+            computed:{
+                // 第一种写法
+                // person() {
+                //     return `姓名:${this.name},年龄:${this.age}`
+                // }
+                // 第二种写法
+                person: {
+                    get() {
+                        return `姓名:${this.name},年龄:${this.age}`
+                    },
+                    // 值发生变化执行此函数，但并不能使得数据改变
+                    set(val) {
+                        
+                    }
+                }
+            },
+            // 帧听器( 1.一个函数只能观察一个值 2.观察本身已经存在的数据 3. 添加定时器与computed有差异 主要由于return导致)
+            watch:{
+
+                // 第一种方式
+                // name(newVal) {
+                //     // 当数据改变后，newVal为改变后的值
+                //     this.person = `姓名:${this.name},年龄:${this.age}`
+                // },
+                // age() {
+                //     this.person = `姓名:${this.name},年龄:${this.age}`
+                // }
+
+                // 第二种利用对象的方式，无需使用mounted
+                name: {
+                    handler (newVal) {
+                        this.person = `姓名:${this.name},年龄:${this.age}`
+                    },
+                    // 立即执行
+                    immediate:true
+                },
+                age: {
+                    handler (newVal) {
+                        this.person = `姓名:${this.name},年龄:${this.age}`
+                    }
+                }
+            }
+        })
+
+        // 第三种 通过调用实例的方式
+        vm.$watch('name', ()=>{
+
+        },{
+            immediate:true
+        })
+    
+    </script>
+
+  -->   
+  
+</body>
+</html>

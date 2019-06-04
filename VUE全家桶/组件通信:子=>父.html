@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+        <div id="app">
+            <!-- 第一种方式 -->
+            <!-- <my-cmp :func="func"></my-cmp> -->
+            <!-- 第二张方式 -->
+            <my-cmp @click="func"></my-cmp>
+            <div ref="dom">引用</div>
+        </div>
+
+<script>
+
+    // 引用 ref dom cmp this.$refs
+/* 
+    0. $children
+    1. 当两个标签的引用相同时，后面的标签会覆盖前面的，利用v-for生成的多个具有同样引用的标签时则会将所有标签放在数组里
+    2. 拿到组件的引用为组件这个对象
+    3. @click.native="func" native 可以监听原生事件 监听整个组件的点击事件
+    4. $attrs $listeners 能够把所有通过v-on绑定的事件放在这这里面
+    5. $emit主动触发函数
+    6. <button v-on="$listeners">click</button> 当事件很多时 把组件内通过v-on传递的所有事件绑定在button上 但是有些无法传参
+    7. @like="like" 监听组件的like事件 可在组件的methods里this.$listeners.like this.$emit('like') 来执行
+ */
+ 
+    // const vm = new Vue({
+    //     el: '#app',
+    //     mounted () {
+    //         // console.log(this.$children)
+    //         console.log(this.$refs,this.$refs.son)
+    //     },
+    //     data:{
+            
+    //     },
+    //     components: {
+    //         myCmp: {
+    //             data() {
+    //                 return {
+    //                     msg: 'hello world'
+    //                 }
+    //             },
+    //             methods: {
+    //                 cmpFunc () {
+    //                     console.log('cmp')
+    //                 }
+    //             },
+    //             template: `<div>i am a cmp</div>`
+    //         }
+    //     }
+    // })
+
+
+    const vm = new Vue({
+        el: '#app',
+        methods: {
+            func (data) {
+                console.log('触发',data);
+            }
+        },
+        components: {
+            myCmp: {
+                data() {
+                    return {
+                        msg: 'hello world'
+                    }
+                },
+                // 第一种方式
+                // props:['func'],
+                methods: {
+                    
+                    cmpFunc () {
+                        console.log('cmp')
+                    },
+                    handleClick () {
+                        console.log(this)
+                        // 第一种方式
+                        // this.func(this.msg);
+                        // 第二种方式
+                        // console.log(this.$listeners);
+                        // this.$listeners.click(this.msg)
+                        // 第三种方式
+                        this.$emit('click',this.msg)
+                    }
+                },
+                template: ` <div>i am a cmp
+                                <button @click="handleClick">点击</button>
+                            </div>`
+            }
+        }
+    })
+</script>
+  
+</body>
+</html>

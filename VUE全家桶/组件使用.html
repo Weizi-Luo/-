@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+        <my-content a="1" b="2" :title="title" :content="cont"></my-content>
+    </div>
+    
+    <script>
+
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                cont: '是的发送地方',
+                title:'kjds'
+            },
+            components: {
+                myContent: {
+                    // 属性注册
+                    // props: ['content', 'title'],
+                    // 属性注册对象写法
+                    props: {
+                        content: {
+                            type: String
+                        },
+                        title: {
+                            type: String,
+                            // 属性校验
+                            validator () {
+                                return value >= 10;
+                            },
+                            // 必须有该属性
+                            required: true,
+                            // 默认值
+                            default:'sfasdfsa'
+                        
+                        },
+                        arr: {
+                            type: Array,
+                            default: () => [1, 2, 3]
+                        }
+                    },
+                    template: ` <div>
+                                    <h3>{{content}}</h3>
+                                    <p>{{title}}</p>
+                                </div>`
+                }
+            }
+        })
+    
+    </script>
+</body>
+</html>

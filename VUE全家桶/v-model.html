@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" v-model="content" @keydown.="taskClick($event, 'down')">
+        <button @click="taskClick($event, 'click')" >提交</button>
+        <p>正在添加的任务: {{content}}</p> 
+        <h4>所有任务</h4>
+        <ul>
+            <li v-for="(task, index) in taskList" :key="index"> {{task}} </li>
+        </ul>
+
+
+    </div>
+    
+    <script>
+/* 
+        1. $event 传入事件对象
+        2. 修饰符
+             i. @keydown.enter @keydown.13 敲击回车执行函数
+                给keyCodes起别名:
+                Vue.config.keyCodes = {
+                    'f1-key':112
+                } 
+            ii. v-model.lazy 修饰符 等输入好了在显示数据
+            iii. v-model.number 修饰符 把是本身是数字的转化成数字类型而不是字符串
+            iv. v-model.trim 去掉前后空格
+
+*/
+             
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: '',
+                taskList:[]
+            },
+            methods:{
+                taskClick (e,type) {
+                    console.log(e,type)
+                    if(type == 'down' && e.keyCode !== 13) {
+                        console.log('a')
+                        return;
+                    }
+                    this.taskList.push(this.content);
+                    this.content = "";
+                },
+                // taskKey (e, type) {
+                //     console.log(e, type)
+                // }
+            }
+        })
+    
+    </script>
+</body>
+</html>

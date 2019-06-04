@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+        <div id="app">
+            <news-list :news-list="newsList"></news-list>
+        </div>
+
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data:{
+            
+        },
+        components: {
+            newsList: {
+                props: ['newsList'],
+                template: ` <ul class="news-list">
+                                <h3 class="search-title">搜索热点</h3>
+                                <news v-for="(item, index) in newsList"
+                                        :key="item.id"
+                                        :ranking="index + 1"
+                                        :title="item.title"
+                                        :index="item.index"
+                                ></news>
+                            </ul>`,
+                components: {
+                    news: {
+                        props: ['ranking', 'title', 'index'],
+                        template: ` <li class="news">
+                                        <div class="content">
+                                            <div class="ranking">{{ ranking }}</div>
+                                            <div class="title">{{ title }}</div>
+                                        </div>
+                                        <div class="index">{{ index }}</div>
+                                    </li> `
+                    }
+                }
+            }
+
+            
+        }
+    })
+</script>
+  
+</body>
+</html>

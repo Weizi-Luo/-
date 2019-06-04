@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" v-slice="content">
+        <span>{{ money | toMoney(2,3) | ceshi}}</span>
+    </div>
+    
+    <script>
+        /* 
+        {{ money | toMoney }} 管道符 + 过滤器名字
+        过滤器 filter
+        1. 传参后 第一个为管道符前的数值，第二个为过滤器传入的参数
+        2. 可写多个过滤器
+        */
+
+        // 过滤器
+        Vue.filter('toMoney', (value, num, num1) => {
+            console.log(value, num, num1)
+            return value.toLocaleString();
+        })
+
+        Vue.filter('ceshi', (value) => {
+            console.log(value)
+            return value;
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: 10,
+                money: 100000
+            },
+            directives: {
+                slice: (el, bindings, vnode) => {
+                    console.log(el)
+                },
+            },
+            fileters:{
+                toMoney: () => {
+                    
+                }
+            }
+        })
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+        <div id="app">
+            <my-button type="success">
+                <template v-slot:right></template>>
+            </my-button>
+        </div>
+
+<script>
+    // slot 插槽
+    // type = "success | danger | info | warning | primary"
+    // v-bind: 简写 :
+    // v-on: 简写 @
+    // v-slot: 简写 #
+    const vm = new Vue({
+        el: '#app',
+        components: {
+            myButton: {
+                props: ['type'],
+                template: `<button>按钮</button>`
+            }
+        }
+    })
+</script>
+  
+</body>
+</html>

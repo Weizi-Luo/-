@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+        <hello-world><hello-world/>
+        <hello-world><hello-world/>
+        <hello-world/>
+    </div>
+    
+    <script>
+
+        // 全局组件 与 局部组件
+        /* 
+            组件的data里定义的数据在template里使用
+            1. 为什么把data写成函数的形式？
+            因为同一个组件可在多个地方使用，各组件数据要求不互相影响，所以放在各自的函数作用域里
+            2. 使用小驼峰与大驼峰方式命名helloWorld HelloWorld 依然可以用连字符hello-world的方式使用组件但不能使用小驼峰或是大驼峰式使用
+            3. .html文件里必须遵从html规范 vue自定义组件不在规范里<hello-world /> 所以多个标签只能渲染一个 
+         */
+        // Vue.component('hello-world',{
+        //     data () {
+        //         return {
+        //             msg:'hello world'
+        //         }
+        //     },
+        //     template:'<div>hello</div>'
+        // })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: ''
+            },
+            components: {
+                helloWorld:{
+                    data () {
+                        return {
+                            msg:'hello world'
+                        }
+                    },
+                    template:'<div>{{msg}}</div>'
+                }
+            }
+        })
+    
+    </script>
+</body>
+</html>

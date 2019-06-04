@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" v-model="content" @inputHandle="inputHandle">
+        <span>{{ content }}</span>
+
+
+        <label for="first">first</label>
+        <input type="checkbox" v-model="checked" value="first">
+        <label for="two">two</label>
+        <input type="checkbox" v-model="checked" value="two">
+        <label for="three">three</label>
+        <input type="checkbox" v-model="checked" value="three">
+        {{ checked }}
+
+        <label for="mom">mom</label>
+        <input type="radio" v-model="picked" value="漂亮">
+        <label for="dad">dad</label>
+        <input type="radio" v-model="picked" value="帅气">
+        {{ picked }}
+
+        <select v-model="selected">
+            <option value="" disabled>请选择</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+        </select>
+        {{selected}}
+    </div>
+    
+    
+    <script>
+
+        // v-model 双向数据绑定 value+input语法糖 
+            // 使用场景: 1. input text 2. textarea 3. input checkbox 4. input radio
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: 'shanshan',
+                checked: [],
+                picked:[],
+                selected:''
+            },
+            methods: {
+                inputHandle(e) {
+                    this.content = e.taget.value;
+                }
+            }
+        })
+    
+    </script>
+</body>
+</html>

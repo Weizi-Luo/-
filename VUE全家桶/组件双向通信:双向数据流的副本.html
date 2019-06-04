@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+        <div id="app">
+            <!-- <my-count :value="count" @input="handleInput"></my-count> -->
+            <!-- <my-count v-model="count"></my-count> -->
+            <!-- <my-count :value="count" @input="handleInput"></my-count> -->
+            <my-count :value.sync="count" ></my-count>
+            <div>当前计数: {{ count }}</div>
+        </div>
+
+<script>
+    /* 
+        .sync = :value + @update:value  @update固定value的值时可以变化的
+     */
+
+    // 定义一个全局组件
+    // 第二种方法
+    // Vue.component('myCount', {
+    //     props: ['value'],
+    //     mounted() {
+    //         setInterval(() => {
+    //             // 关键: 
+    //             value = this.value + 1;
+    //             this.$emit('input', value)
+    //         }, 1000)
+    //     },
+    //     template: `<div>{{ value }}</div>`,
+    // })
+    // const vm = new Vue({
+    //     el: '#app',
+    //     data:{
+    //         count:100,
+    //     },
+    //     // methods: {
+    //     //     handleInput (value) {
+    //     //         this.count = value;
+    //     //     }
+    //     // }
+    // })
+    
+    Vue.component('myCount', {
+        props: ['value', 'obj'],
+        data () {
+            return {
+                myVal: this.value
+            }
+        },
+        mounted() {
+            setInterval(() => {
+                // 关键: 
+                let value = this.value + 1;
+                this.$emit('input', value)
+            }, 1000)
+        },
+        template: `<div>{{ value }}</div>`,
+    })
+    const vm = new Vue({
+        el: '#app',
+        data:{
+            count:100,
+        },
+        methods: {
+            handleInput (value) {
+                this.count = value;
+            }
+        }
+    })
+</script>
+  
+</body>
+</html>

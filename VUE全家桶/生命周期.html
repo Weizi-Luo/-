@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+        
+    </div>
+    
+    <script>
+        /* 
+        1. 找el属性 然后找template，拿到value值 直接到第三步生成 AST
+        2. 拿到名为div#dpp的outerHTML 即 字符串类型的dom结构 " <div id="app"></div> "
+        3. 生产一个抽象语法树AST
+        4. 通过render函数生成虚拟dom -> VNode
+        5. 通过VNode生成真实的dom 替换" <div id="app"></div> "
+        */
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: ''
+            },
+            template: '<p></p>',
+            beforeCreate() {
+            // x
+                console.log('beforeCreate');
+            },
+            created () {
+            // 调用ajax
+            // console.log(this)
+            },
+            beforeMount() {
+            // x
+                console.log(this.$el);
+            },
+            mounted() {
+            // ✓︎ ajax
+                console.log('this.$el');
+            },
+            beforeUpadate() {
+            // x
+                this.age = 16;
+                console.log('beforeUpdate');
+            },
+            updated () {
+            // x
+                // this.age = 19;
+                console.log('updated');
+            },
+            beforeDestroy() {
+            // ✓ 定时器︎的清除
+                console.log('destroy');
+            },
+            destroyed() {
+            // x
+                console.log('destroyer');
+            }
+        })
+    
+    </script>
+</body>
+</html>

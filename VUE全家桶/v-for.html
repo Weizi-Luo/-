@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+
+    <div id="app">
+        <div v-for="(item, index) in arr" :key="index">{{ index }}</div>
+        <button @click="onClick">click</button>
+        <div v-for="(person, index) in personArr" :key="index">{{ person }}</div>
+        <div v-for="item in 9"></div>
+        <div v-for="item in 'hello' "></div>
+
+        <div v-if="flag">
+            <label for="name">名字</label>
+            <input type="text" id="name" key="name">
+        </div>
+        <div v-else>
+            <label for="age">年龄</label>
+            <input type="text" id="age" key="age">
+        </div>
+        <button @click="click">click</button>
+        
+   
+    </div>
+    
+    <script>
+        // v-for
+        // key值必须唯一的
+        // 循环遍历数组，（item，index） 循环遍历对象（key，value）
+        // v-for="item in 3"  循环遍历数字  1 2 3    
+        // v-for="item in 'hello'  循环遍历字符串 h e l l o
+        // template 标签不能写key，它是一个不存在的dom
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                arr: [1, 2, 3],
+                personArr: ['stg', 'cg', 'dg'],
+                flag:true
+            },
+            methods:{
+                onClick () {
+                    this.personArr.reverse();
+                },
+                click () {
+                    this.flag = !this.flag;
+                }
+            }
+        })
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="text" v-slice:5.number="content">
+        <span>{{ content }}</span>
+
+    </div>
+
+    <script>
+        /* 
+                要用v-slice自定义语法糖 必须要和v-model使用
+        
+                Vue.directive('slice', (el, bindings, vnode) => {
+                    console.log(el, bindings, vnode)
+                });
+                传参数 v-slice:9 bindings.arg 接收参数  加修饰符 v-slice:9.number        
+
+                el: 绑定的dom元素   bindings: 自定义指令的东西  vnode: vue实例里的东西
+                bind() 给dom元素绑定上自定义指令时执行
+                update() 当虚拟dom重新刷新时执行
+                inserted() 当dom元素插入到页面时执行
+        */
+
+
+        // 利用自定义指令实现双向数据绑定 (定义全局的自定义指令)
+        Vue.directive('slice', {
+            // 绑定时立即执行
+            bind(el, bindings, vnode) {
+                console.log(el, bindings, vnode)
+                const context = vnode.context;
+                const length = bindings.arg || 5;
+                // 设置初始数据的条件
+                let initVal = context[bindings.expression]
+                // 有number修饰符操作则进行过滤处理
+                const numberFlag = bindings.modifiers.number;
+                if (numberFlag) {
+                    initVal = initVal.replace(/[^0-9]/g, "");
+                }
+                // 数据截取
+                initVal = initVal.slice(0, length);
+                // 输入框数据渲染
+                el.value = initVal;
+                // 将content内的数据更新
+                context[bindings.expression] = initVal;
+
+                // 双向数据绑定
+                el.oninput = e => {
+                    // 实时获取输入框的value值
+                    let value = e.target.value;
+                    if (numberFlag) {
+                        value = value.replace(/[^0-9]/g, "");
+                    }
+                    // 数据截取
+                    value = value.slice(0, length);
+                    // 只取length位
+                    let val = value.slice(0, length);
+                    context[bindings.expression] = val;
+                    el.value = val;
+                }
+            },
+            //  数据发生变化执行
+            update(el, bindings, vnode) {
+                // 控制台控制虚拟dom发生改变后，value也改变
+                let context = vnode.context;
+                // 只允许数字出现
+                const numberFlag = bindings.modifiers.number;
+                let value = context[bindings.expression];
+                if (numberFlag) {
+                        value = value.replace(/[^0-9]/g, "");
+                    }
+                // 输入框绑定
+                el.value = value;
+                // span里的数据绑定
+                context[bindings.expression] = value;
+            },
+            // 元素插入立即执行
+            inserted(el, bindings, vnode) {
+                // 页面一进来就聚焦
+                el.focus();
+            }
+
+        });
+        // input value发生变化执行
+        // Vue.directive('slice', {
+        //     update (el, bindings, vnode) {
+        //         console.log(el, bindings, vnode)
+        //     }
+        // });
+        // 元素插入立即执行
+        // Vue.directive('slice', {
+        //     inserted (el, bindings, vnode) {
+        //         console.log(el, bindings, vnode)
+        //     }
+        // });
+
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                content: 'sha234nasdfsadfsad'
+            }
+        })
+
+    </script>
+</body>
+
+</html>

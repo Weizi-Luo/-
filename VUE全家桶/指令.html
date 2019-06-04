@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<img :src="imgUrl" :class="{yellow:flag, green: greenFlag}" :class="[redClass, blueClass, flag && 'red']"  alt="" />
+		<div  :style="[divStyle, divStyle1]" style="width:500px; htight: 500px;">hello</div>
+		<button @click="change">red</button>
+		<button @click="change('blue')">blue</button>
+		<button @click="change('orange')">orange</button>
+		<div :style="{width: '100px', height: '100px', backgroundColor: color}"></div>
+
+		<p v-pre>{{ name }}</p>
+		{{age}}
+		{{arr}}
+		{{obj}}
+		<div v-html="dom"></div>
+		<p v-text='age'>asd</p>
+	
+		<div v-if='!flag'>
+			<p>显示</p>
+		</div>
+	</div>
+
+	
+
+	<script>
+		/* 指令 */
+		// 1. v-pre  不进行vue编译
+		// 2. v-cloak 解除闪屏
+		// 3. v-once 使用缓存里的数据并取唯一一次
+		// 4. v-html='' == innerHTML XSS
+		// 5. v-text='' innerText 一般不用 这样内容不可添加 使用插值表达式比较好
+		// 6. v-if='flag'  与 v-else v-else-if // 移除元素与添加 隐藏子代元素，自己不隐藏。
+		// 配合template标签使用，整体包括自己也消失了
+		// 7. v-show // 与 v-if功能用法差不多。本质1.是通过控制css样式来显示隐藏 2.不支持template标签
+		
+		// 1. b-bind: 绑定属性 简写  : 
+		// 		i. 绑定class 两种方式 [] 和 {}  可利用flag:true 表示是否绑定 但只有第一个绑定有效
+		//		ii. style  绑定方式 [] 和 {} :style="{width: '100px', height:'100px', backgroundColor: color}" 
+					// 1. 数据必须有''包裹不能会解析成变量
+					// 2. 当利用变量时， css属性应该变成小驼峰式
+					// 3. 当原生样式与绑定样式同时设置时， 无论设置的先后都显示绑定的。即权重 :style > style
+		// 2. v-on: click="change('red')" 简写 @:click="change('red')" 注意不要有冲突如果先在data里找change 没有在去别的地方。如果不传参data里this指向window,而methods始终指向vue的实例
+
+		const vm = new Vue({
+			el:'#app',
+			data:{
+				name:'Weizi',
+				age:18,
+				arr:[ 'a', 'b', 'c'],
+				obj:{
+					name:'luo',
+					age:18
+				},
+				dom:'<div>我真棒！</div>',
+				flag:true,
+				imgUrl:'https://www.baidul.sldkfjw.dsaloj1231',
+				greenFlag: true,
+				color: 'yellow',
+				divStyle: {width: '100px', height:'100px', backgroundColor: 'red'},
+				divStyle1: {color: '#fff'},
+				// change () {
+				// 	console.log(this)
+				// }
+			},
+			methods:{
+				change(color) {
+					this.color = color;
+				}
+			}
+		})
+		
+
+
+
+
+
+
+	</script>
+	
+</body>
+</html>

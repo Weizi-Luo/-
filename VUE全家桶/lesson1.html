@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+	<div id="app">
+		<p>{{ name }}</p>
+		{{age}}
+		{{arr}}
+		{{obj}}
+		
+
+	</div>
+
+	<script>
+		/* 
+			$el 获取到dom元素
+			$set(vm.obj,'name',90) 针对与给对象添加一个本身没有的数据但想要实时渲染在页面的情况下可使用 		
+		
+		 */
+		var arr1 = [1,2,3,4]
+		console.log(...arr1)
+		const a = 10;
+		const vm = new Vue({
+			el:'#app',
+			data:{
+				name:'Weizi',
+				age:18,
+				arr:[ a, 'b', 'c'],
+				obj:{
+					name:'luo',
+					age:18
+				}
+			}
+		})
+		
+		// 先将这些操作方法放在队列里去，如果遇到后面的操作方法有相同的则替换掉前面的最后再将数据渲染到视图上，而不是对每一步操作都视图渲染
+		vm.name = 'jie';
+		vm.name = 'wei';
+		console.log(vm.$el.innerText)
+
+		vm.$nextTick(() => {
+			console.log(vm.$el.innerText)
+		})
+
+
+
+
+
+	</script>
+	
+</body>
+</html>
